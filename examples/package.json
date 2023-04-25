@@ -1,0 +1,18 @@
+{
+  "name": "lambda-stream-example",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.114",
+    "@types/node": "^18.16.0",
+    "typescript": "^5.0.4"
+  },
+  "author": "AJ Stuyvenberg",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
+  }
+}

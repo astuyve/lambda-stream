@@ -1,9 +1,16 @@
 {
   "name": "lambda-stream",
   "version": "0.0.1",
-  "description": "",
+  "description": "awslambda.streamifyResponse, but locally and with typescript",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "repository": "https://github.com/astuyve/lambda-stream/",
+  "keywords": [
+    "serverless",
+    "lambda",
+    "aws",
+    "stream"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc"

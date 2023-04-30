@@ -9,7 +9,6 @@ export function isInAWS(handler: any): boolean {
 }
 
 export function streamifyResponse(handler: Function): Function {
-  let response: string = ''
   let responseStream: ResponseStream
   // Check for global awslambda
   if (isInAWS(handler)) {
@@ -17,12 +16,12 @@ export function streamifyResponse(handler: Function): Function {
     return awslambda.streamifyResponse(handler)
   } else {
     return new Proxy(handler, {
-      apply: function (target, _, argList) {
+      apply: async function (target, _, argList) {
         responseStream = new ResponseStream()
         argList.splice(1, 0, responseStream)
-        target(...argList)
-        response = responseStream._read().toString()
-        return response
+        await target(...argList)
+        // Todo - honor content type
+        return responseStream.getBufferedData().toString()
       }
     })
   }
@@ -30,3 +29,4 @@ export function streamifyResponse(handler: Function): Function {
 
 
 export { ResponseStream } from './ResponseStream'
+

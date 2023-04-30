@@ -1,6 +1,6 @@
 {
   "name": "lambda-stream",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "awslambda.streamifyResponse, but locally and with typescript",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -18,8 +18,23 @@
   "author": "AJ Stuyvenberg",
   "license": "MIT",
   "devDependencies": {
+    "@types/jest": "^29.5.1",
     "@types/node": "^18.16.0",
+    "ts-jest": "^29.1.0",
     "typescript": "^5.0.4"
   },
-  "dependencies": {}
+  "dependencies": {
+    "jest": "^29.5.0"
+  },
+  "jest": {
+    "verbose": true,
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "transform": {
+      ".(ts|tsx)": "ts-jest"
+    }
+  }
 }

@@ -37,8 +37,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.handler = void 0;
-var lambdaStream_1 = require("lambdaStream");
-exports.handler = (0, lambdaStream_1.streamifyResponseShim)(myHandler);
+var lambda_stream_1 = require("lambda-stream");
+exports.handler = (0, lambda_stream_1.streamifyResponse)(myHandler);
 function myHandler(event, responseStream) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {

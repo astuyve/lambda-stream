@@ -1,25 +1,22 @@
-import Duplex from 'stream'
+import { Stream } from 'stream'
 
-export class ResponseStream extends Duplex {
-  response: any[] 
+export class ResponseStream extends Stream.Writable {
+  private response: Buffer[];
   _contentType?: string
 
   constructor() {
     super()
     this.response = []
   }
-
   // @param chunk Chunk of data to unshift onto the read queue. For streams not operating in object mode, `chunk` must be a string, `Buffer`, `Uint8Array` or `null`. For object mode
   // streams, `chunk` may be any JavaScript value.
-  write(chunk: Uint8Array | string | Buffer | null) {
-    this.response.unshift(chunk)
+  _write(chunk: any, encoding: BufferEncoding, callback: (error?: Error | null) => void): void {
+    this.response.push(Buffer.from(chunk, encoding));
+    callback();
   }
 
-  end() {
-  }
-
-  _read(): Uint8Array[] {
-    return this.response
+  getBufferedData(): Buffer {
+    return Buffer.concat(this.response);
   }
 
   setContentType(contentType: string) {

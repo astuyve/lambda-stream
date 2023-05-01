@@ -6,7 +6,20 @@ In AWS Lambda, it'll simply use the global `awslambda.streamifyResponse`.
 
 This library exposes a `ResponseStream` class, the `streamifyResponse` method, and `isInAWS` method. Types are also included.
 
+## Why?
+AWS added Lambda Response Streaming directly into the NodeJS runtime as a global method, instead of providing it with the AWS-SDK.
 
+This makes functions leveraging Lambda Response Streaming difficult to test, run locally, or even write Lambda functions using a typical editor. Magic, runtime-only methods are a drag on developer experience!
+
+So I wrote this library to fill that gap
+
+## End of Life
+This library shouldn't exist.
+
+If or when AWS decides to release and support a library which makes AWS Lambda Streaming Responses usable and testable locally, I'll happily archive this project.
+
+
+## Examples
 
 Works like this:
 

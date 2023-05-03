@@ -1,11 +1,16 @@
-"use strict";
+'use strict'
 
 import { ResponseStream } from './ResponseStream'
-export const HANDLER_STREAMING = Symbol.for("aws.lambda.runtime.handler.streaming");
-export const STREAM_RESPONSE = "response";
+export const HANDLER_STREAMING = Symbol.for(
+  'aws.lambda.runtime.handler.streaming'
+)
+export const STREAM_RESPONSE = 'response'
 
 export function isInAWS(handler: any): boolean {
-    return handler[HANDLER_STREAMING] !== undefined && handler[HANDLER_STREAMING] === STREAM_RESPONSE
+  return (
+    handler[HANDLER_STREAMING] !== undefined &&
+    handler[HANDLER_STREAMING] === STREAM_RESPONSE
+  )
 }
 
 export function streamifyResponse(handler: Function): Function {
@@ -20,7 +25,7 @@ export function streamifyResponse(handler: Function): Function {
         await target(...argList)
         // Todo - honor content type
         return responseStream.getBufferedData().toString()
-      }
+      },
     })
   }
 }
@@ -34,4 +39,3 @@ function patchArgs(argList: any[]): ResponseStream {
 }
 
 export { ResponseStream } from './ResponseStream'
-

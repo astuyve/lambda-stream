@@ -9,7 +9,6 @@ function isInAWS(handler) {
 }
 exports.isInAWS = isInAWS;
 function streamifyResponse(handler) {
-    let responseStream;
     // Check for global awslambda
     if (isInAWS(handler)) {
         // @ts-ignore
@@ -18,8 +17,7 @@ function streamifyResponse(handler) {
     else {
         return new Proxy(handler, {
             apply: async function (target, _, argList) {
-                responseStream = new ResponseStream_1.ResponseStream();
-                argList.splice(1, 0, responseStream);
+                const responseStream = patchArgs(argList);
                 await target(...argList);
                 // Todo - honor content type
                 return responseStream.getBufferedData().toString();
@@ -28,6 +26,14 @@ function streamifyResponse(handler) {
     }
 }
 exports.streamifyResponse = streamifyResponse;
+function patchArgs(argList) {
+    console.log('PATCHARGS');
+    if (!(argList[1] instanceof ResponseStream_1.ResponseStream)) {
+        const responseStream = new ResponseStream_1.ResponseStream();
+        argList.splice(1, 0, responseStream);
+    }
+    return argList[1];
+}
 var ResponseStream_2 = require("./ResponseStream");
 Object.defineProperty(exports, "ResponseStream", { enumerable: true, get: function () { return ResponseStream_2.ResponseStream; } });
 //# sourceMappingURL=index.js.map

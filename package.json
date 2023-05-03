@@ -13,15 +13,17 @@
   ],
   "scripts": {
     "test": "jest",
-    "build": "tsc"
+    "build": "tsc",
+    "format": "prettier --write ."
   },
   "author": "AJ Stuyvenberg",
   "license": "MIT",
   "devDependencies": {
     "@types/jest": "^29.5.1",
     "@types/node": "^18.16.0",
-    "typescript": "^5.0.4",
-    "jest": "^29.5.0"
+    "jest": "^29.5.0",
+    "prettier": "^2.8.8",
+    "typescript": "^5.0.4"
   },
   "dependencies": {},
   "jest": {

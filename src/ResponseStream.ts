@@ -3,6 +3,7 @@ import { Stream } from 'stream'
 export class ResponseStream extends Stream.Writable {
   private response: Buffer[]
   _contentType?: string
+  _isBase64Encoded?: boolean
 
   constructor() {
     super()
@@ -25,5 +26,9 @@ export class ResponseStream extends Stream.Writable {
 
   setContentType(contentType: string) {
     this._contentType = contentType
+  }
+
+  setIsBase64Encoded(isBase64Encoded: boolean) {
+    this._isBase64Encoded = isBase64Encoded
   }
 }

@@ -28,7 +28,9 @@ export function streamifyResponse(handler: Function): Function {
           headers: {
             'content-type': responseStream._contentType || 'application/json',
           },
-          isBase64Encoded: responseStream._isBase64Encoded,
+          ...(responseStream._isBase64Encoded
+            ? { isBase64Encoded: responseStream._isBase64Encoded }
+            : {}),
           body: responseStream._isBase64Encoded
             ? responseStream.getBufferedData().toString('base64')
             : responseStream.getBufferedData().toString(),

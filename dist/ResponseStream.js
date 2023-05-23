@@ -19,6 +19,9 @@ class ResponseStream extends stream_1.Stream.Writable {
     setContentType(contentType) {
         this._contentType = contentType;
     }
+    setIsBase64Encoded(isBase64Encoded) {
+        this._isBase64Encoded = isBase64Encoded;
+    }
 }
 exports.ResponseStream = ResponseStream;
 //# sourceMappingURL=ResponseStream.js.map

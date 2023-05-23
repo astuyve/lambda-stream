@@ -23,8 +23,18 @@ export function streamifyResponse(handler: Function): Function {
       apply: async function (target, _, argList) {
         const responseStream: ResponseStream = patchArgs(argList)
         await target(...argList)
-        // Todo - honor content type
-        return responseStream.getBufferedData().toString()
+        return {
+          statusCode: 200,
+          headers: {
+            'content-type': responseStream._contentType || 'application/json',
+          },
+          ...(responseStream._isBase64Encoded
+            ? { isBase64Encoded: responseStream._isBase64Encoded }
+            : {}),
+          body: responseStream._isBase64Encoded
+            ? responseStream.getBufferedData().toString('base64')
+            : responseStream.getBufferedData().toString(),
+        }
       },
     })
   }

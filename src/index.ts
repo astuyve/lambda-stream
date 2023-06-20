@@ -1,21 +1,15 @@
 'use strict'
 
 import { ResponseStream } from './ResponseStream'
-export const HANDLER_STREAMING = Symbol.for(
-  'aws.lambda.runtime.handler.streaming'
-)
-export const STREAM_RESPONSE = 'response'
 
-export function isInAWS(handler: any): boolean {
-  return (
-    handler[HANDLER_STREAMING] !== undefined &&
-    handler[HANDLER_STREAMING] === STREAM_RESPONSE
-  )
+export function isInAWS(): boolean {
+  // @ts-ignore
+  return globalThis.awslambda !== undefined && awslambda.streamifyResponse !== undefined
 }
 
 export function streamifyResponse(handler: Function): Function {
   // Check for global awslambda
-  if (isInAWS(handler)) {
+  if (isInAWS()) {
     // @ts-ignore
     return awslambda.streamifyResponse(handler)
   } else {

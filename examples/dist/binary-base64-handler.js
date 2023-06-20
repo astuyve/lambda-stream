@@ -36,17 +36,26 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.handler = void 0;
+exports.binaryBase64Handler = void 0;
 var lambda_stream_1 = require("lambda-stream");
-exports.handler = (0, lambda_stream_1.streamifyResponse)(myHandler);
+var stream_1 = require("stream");
+var promises_1 = require("stream/promises");
+exports.binaryBase64Handler = (0, lambda_stream_1.streamifyResponse)(myHandler);
 function myHandler(event, responseStream) {
     return __awaiter(this, void 0, void 0, function () {
+        var source;
         return __generator(this, function (_a) {
-            responseStream.setContentType('text/plain');
-            responseStream.write('Hello, world!');
-            responseStream.end();
-            return [2 /*return*/];
+            switch (_a.label) {
+                case 0:
+                    source = stream_1.Readable.from(Buffer.from('hello world'));
+                    responseStream.setContentType('binary/octet-stream');
+                    responseStream.setIsBase64Encoded(true);
+                    return [4 /*yield*/, (0, promises_1.pipeline)(source, responseStream)];
+                case 1:
+                    _a.sent();
+                    return [2 /*return*/];
+            }
         });
     });
 }
-//# sourceMappingURL=handler.js.map
+//# sourceMappingURL=binary-base64-handler.js.map

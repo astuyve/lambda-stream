@@ -1,12 +1,6 @@
 'use strict'
 
 import { ResponseStream } from './ResponseStream'
-// TODO deprecate in major
-export const HANDLER_STREAMING = Symbol.for(
-  'aws.lambda.runtime.handler.streaming'
-)
-// TODO deprecate in major
-export const STREAM_RESPONSE = 'response'
 
 export function isInAWS(): boolean {
   // @ts-ignore

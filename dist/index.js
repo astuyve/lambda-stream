@@ -1,11 +1,7 @@
 'use strict';
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ResponseStream = exports.streamifyResponse = exports.isInAWS = exports.STREAM_RESPONSE = exports.HANDLER_STREAMING = void 0;
+exports.ResponseStream = exports.streamifyResponse = exports.isInAWS = void 0;
 const ResponseStream_1 = require("./ResponseStream");
-// TODO deprecate in major
-exports.HANDLER_STREAMING = Symbol.for('aws.lambda.runtime.handler.streaming');
-// TODO deprecate in major
-exports.STREAM_RESPONSE = 'response';
 function isInAWS() {
     // @ts-ignore
     return globalThis.awslambda !== undefined && awslambda.streamifyResponse !== undefined;

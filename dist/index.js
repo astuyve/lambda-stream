@@ -3,8 +3,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ResponseStream = exports.streamifyResponse = exports.isInAWS = void 0;
 const ResponseStream_1 = require("./ResponseStream");
 function isInAWS() {
+    return (
     // @ts-ignore
-    return globalThis.awslambda !== undefined && awslambda.streamifyResponse !== undefined;
+    globalThis.awslambda !== undefined &&
+        // @ts-ignore
+        awslambda.streamifyResponse !== undefined);
 }
 exports.isInAWS = isInAWS;
 function streamifyResponse(handler) {

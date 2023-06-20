@@ -3,9 +3,10 @@
 import { ResponseStream } from './ResponseStream'
 
 export function isInAWS(): boolean {
-  // @ts-ignore
   return (
+    // @ts-ignore
     globalThis.awslambda !== undefined &&
+    // @ts-ignore
     awslambda.streamifyResponse !== undefined
   )
 }

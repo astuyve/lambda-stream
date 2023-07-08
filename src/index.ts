@@ -26,7 +26,7 @@ export function streamifyResponse(handler: RequestHandler): RequestHandler {
     return awslambda.streamifyResponse(handler)
   } else {
     return new Proxy(handler, {
-      apply: async function (target, _, argList: [APIGatewayProxyEventV2, ResponseStream, Context | undefined, Callback | undefined]) {
+      apply: async function (target, _, argList: Parameters<RequestHandler>) {
         const responseStream: ResponseStream = patchArgs(argList)
         await target(...argList)
         return {

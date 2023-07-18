@@ -12,11 +12,11 @@ export function isInAWS(): boolean {
   )
 }
 
- export type RequestHandler = (
+export type RequestHandler = (
   ev: APIGatewayProxyEventV2,
   streamResponse: ResponseStream,
   ctx?: Context,
-  callback?: Callback,
+  callback?: Callback
 ) => any | Promise<any>
 
 export function streamifyResponse(handler: RequestHandler): RequestHandler {

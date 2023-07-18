@@ -72,3 +72,8 @@ const handler = async (event, responseStream, _context) => {
 
 module.exports.gzip = streamifyResponse(handler)
 ```
+
+## Contributors
+[AJ Stuyvenberg](https://github.com/astuyve)
+[Luka Matic](https://github.com/maticluka999)
+[Paulo Ricardo Xavier Giusti](https://github.com/prxg22)

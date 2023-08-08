@@ -73,7 +73,46 @@ const handler = async (event, responseStream, _context) => {
 module.exports.gzip = streamifyResponse(handler)
 ```
 
+## Headers, Status Code
+AWS provides a helper function which allows you to specify additional headers, as well as craft the status code.
+
+```javascript
+const { streamifyResponse } = require('lambda-stream')
+const stream = require('stream')
+module.exports.hello = streamifyResponse(
+  async (event, responseStream, context) => {
+    const metadata = {
+      statusCode: 200,
+      headers: {
+        "Content-Type": "application/json",
+        "CustomHeader": "outerspace"
+      }
+    };
+    
+    // Use global helper to pass metadata and status code
+    responseStream = awslambda.HttpResponseStream.from(responseStream, metadata);
+
+    responseStream.write("Streaming with Helper \n");
+    await new Promise(r => setTimeout(r, 1000));
+    responseStream.write("Hello 0 \n");
+    await new Promise(r => setTimeout(r, 1000));
+    responseStream.write("Hello 1 \n");
+    await new Promise(r => setTimeout(r, 1000));
+    responseStream.write("Hello 3 \n");
+    responseStream.end();
+    // Suggested in Documentation: https://docs.aws.amazon.com/lambda/latest/dg/response-streaming-tutorial.html
+    // But NOT defined in node 16 or node 18
+    // Only defined in node 14
+    await responseStream.finished();
+  }
+);
+```
+
+We are considering shimming our own helper to support types as well.
+
 ## Contributors
 [AJ Stuyvenberg](https://github.com/astuyve)
+
 [Luka Matic](https://github.com/maticluka999)
+
 [Paulo Ricardo Xavier Giusti](https://github.com/prxg22)

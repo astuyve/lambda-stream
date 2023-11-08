@@ -25,13 +25,13 @@ If or when AWS decides to release and support a library which makes AWS Lambda S
 Works like this:
 
 ```typescript
-import { APIGatewayProxyEvent } from 'aws-lambda'
+import { APIGatewayProxyEventV2 } from 'aws-lambda'
 import { streamifyResponse, ResponseStream } from 'lambda-stream'
 
 export const handler = streamifyResponse(myHandler)
 
 async function myHandler(
-  event: APIGatewayProxyEvent,
+  event: APIGatewayProxyEventV2,
   responseStream: ResponseStream
 ): Promise<void> {
   console.log('Handler got event:', event)

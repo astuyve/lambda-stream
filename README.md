@@ -35,9 +35,15 @@ async function myHandler(
   responseStream: ResponseStream
 ): Promise<void> {
   console.log('Handler got event:', event)
-  responseStream.setContentType('text/plain')
-  responseStream.write('Hello, world!')
-  responseStream.end()
+  return new Promise((resolve, reject) => {
+    responseStream.setContentType('text/plain')
+    responseStream.write('Hello')
+    setTimeout(() => {
+        responseStream.write('World')
+        responseStream.end()
+        resolve()
+    }, 1000)
+  }
 }
 ```
 

@@ -43,7 +43,7 @@ async function myHandler(
         responseStream.end()
         resolve()
     }, 1000)
-  }
+  })
 }
 ```
 

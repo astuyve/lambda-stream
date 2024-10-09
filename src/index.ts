@@ -12,21 +12,29 @@ export function isInAWS(): boolean {
   )
 }
 
-export type RequestHandler = (
-  ev: APIGatewayProxyEventV2,
+export type RequestHandler<
+  TEvent = APIGatewayProxyEventV2
+> = (
+  ev: TEvent,
   streamResponse: ResponseStream,
   ctx?: Context,
   callback?: Callback
 ) => any | Promise<any>
 
-export function streamifyResponse(handler: RequestHandler): RequestHandler {
+export function streamifyResponse<TEvent = any>(
+  handler: RequestHandler<TEvent>
+): RequestHandler<TEvent> {
   // Check for global awslambda
   if (isInAWS()) {
     // @ts-ignore
     return awslambda.streamifyResponse(handler)
   } else {
     return new Proxy(handler, {
-      apply: async function (target, _, argList: Parameters<RequestHandler>) {
+      apply: async function (
+        target,
+        _,
+        argList: Parameters<RequestHandler<TEvent>>
+      ) {
         const responseStream: ResponseStream = patchArgs(argList)
         await target(...argList)
         return {

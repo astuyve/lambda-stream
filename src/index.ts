@@ -14,18 +14,18 @@ export function isInAWS(): boolean {
 
 export type StreamingHandler<
   TEvent = APIGatewayProxyEventV2,
-  TResult = any
+  TResult = void
 > = (
   ev: TEvent,
   streamResponse: ResponseStream,
   ctx?: Context,
   callback?: Callback<TResult>
-) => void | Promise<TResult>
+) => TResult | Promise<TResult>
 
 // Provided for backwards compatibility
 export type RequestHandler<TResult = any> = StreamingHandler<APIGatewayProxyEventV2, TResult>;
 
-export function streamifyResponse<TEvent = any, TResult = any>(
+export function streamifyResponse<TEvent = any, TResult = void>(
   handler: StreamingHandler<TEvent, TResult>
 ): StreamingHandler<TEvent, TResult> {
   // Check for global awslambda

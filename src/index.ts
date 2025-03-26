@@ -1,6 +1,6 @@
 'use strict'
 
-import { APIGatewayProxyEventV2, Callback, Context } from 'aws-lambda'
+import { APIGatewayProxyEventV2, Callback, Context, LambdaFunctionURLEvent, LambdaFunctionURLResult } from 'aws-lambda'
 import { ResponseStream } from './ResponseStream'
 
 export function isInAWS(): boolean {
@@ -13,8 +13,8 @@ export function isInAWS(): boolean {
 }
 
 export type StreamingHandler<
-  TEvent = APIGatewayProxyEventV2,
-  TResult = void
+  TEvent = LambdaFunctionURLEvent,
+  TResult = LambdaFunctionURLResult
 > = (
   ev: TEvent,
   streamResponse: ResponseStream,
